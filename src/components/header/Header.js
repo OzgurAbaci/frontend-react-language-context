@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import headerImage from '../../assets/wall-with-plants.jpg';
-import { ReactComponent as FlagNL } from '../../assets/netherlands.svg';
 import './Header.css';
+import {LanguageContext} from "../../context/languageContext/LanguageContext";
+import {FlagProvider} from "../FlagProvider/FlagProvider";
 
 const content = {
   nl: {
@@ -26,6 +27,23 @@ const content = {
 }
 
 function Header() {
+  const {language, setDutch, setSpanish, toggleLanguage} = useContext(LanguageContext);
+  let rightLangContent = {}
+  let changeLanguage = ()=>{}
+
+  // switch (language){
+  //   case 'nl':
+  //     rightLangContent = content.nl;
+  //     changeLanguage = setSpanish;
+  //     break;
+  //   case 'es':
+  //     rightLangContent = content.es;
+  //     changeLanguage = setDutch;
+  //     break;
+  //   default:
+  //     rightLangContent = content.nl;
+  // }
+
   return (
     <>
       <header>
@@ -33,23 +51,23 @@ function Header() {
           <ul>
             <li>
               <NavLink exact to="/about-us">
-                {content.nl.menuItems.aboutUs}
+                {content[language].menuItems.aboutUs}
               </NavLink>
             </li>
             <li>
               <NavLink exact to="/all-plants">
-                {content.nl.menuItems.allPlants}
+                {content[language].menuItems.allPlants}
               </NavLink>
               </li>
-            <li className="language-switch">
-              <p>{content.nl.changeTo}</p>
-              <FlagNL />
+            <li className="language-switch" onClick={toggleLanguage}>
+              <p>{content[language].changeTo}</p>
+              <FlagProvider />
             </li>
           </ul>
         </nav>
         <div className="image-container">
           <img src={headerImage} alt="Header image plants" className="header-image" />
-          <h1>{content.nl.title}</h1>
+          <h1>{content[language].title}</h1>
         </div>
 
       </header>

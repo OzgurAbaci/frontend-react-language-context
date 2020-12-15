@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {LanguageContext} from "../../context/languageContext/LanguageContext";
 
 const content = {
   nl: {
@@ -34,12 +35,26 @@ const content = {
 };
 
 function AllPlants() {
+  const {language} = useContext(LanguageContext);
+  // let rightLangContent = {};
+
+  // switch (language){
+  //   case 'nl':
+  //     rightLangContent = content.nl;
+  //     break;
+  //   case 'es':
+  //     rightLangContent = content.es;
+  //     break;
+  //   default:
+  //     rightLangContent = content.nl;
+  // }
+
   return (
     <div className="page-container">
-      <h2>{content.nl.title}</h2>
-      <p>{content.nl.text}</p>
+      <h2>{content[language].title}</h2>
+      <p>{content[language].text}</p>
       <ul>
-        {content.nl.plants.map((plant) => <li>{plant}</li>)}
+        {content[language].plants.map((plant) => <li>{plant}</li>)}
       </ul>
     </div>
   );
